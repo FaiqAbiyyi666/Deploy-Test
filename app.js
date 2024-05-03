@@ -1,30 +1,33 @@
-var express = require('express');
-var logger = require('morgan');
+var express = require("express");
+var logger = require("morgan");
 var app = express();
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 
-const routes = require('./routes');
-app.use('/api/v1', routes);
+app.get("/", (req, req) =>
+  res.json({ status: true, message: "Hello World!", data: null })
+);
+const routes = require("./routes");
+app.use("/api/v1", routes);
 
 // 500 error handler
 app.use((err, req, res, next) => {
-    console.log(err);
-    res.status(500).json({
-        status: false,
-        message: err.message,
-        data: null
-    });
+  console.log(err);
+  res.status(500).json({
+    status: false,
+    message: err.message,
+    data: null,
+  });
 });
 
 // 404 error handler
 app.use((req, res, next) => {
-    res.status(404).json({
-        status: false,
-        message: `are you lost? ${req.method} ${req.url} is not registered!`,
-        data: null
-    });
+  res.status(404).json({
+    status: false,
+    message: `are you lost? ${req.method} ${req.url} is not registered!`,
+    data: null,
+  });
 });
 
 module.exports = app;
