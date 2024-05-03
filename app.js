@@ -5,7 +5,7 @@ var app = express();
 app.use(logger("dev"));
 app.use(express.json());
 
-app.get("/", (res, req) =>
+app.get("/", (req, res) =>
   res.json({ status: true, message: "Hello World!", data: null })
 );
 const routes = require("./routes");
