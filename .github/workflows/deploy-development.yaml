@@ -33,13 +33,13 @@ jobs:
       - name: Install prisma
         run: npm i prisma
 
-      - name: Run Migrations
+      - name: Run Migration
         run: |
-          export DATABASE_URL = "${{secrets.DATABASE_URL}}"
+          export DATABASE_URL="${{secrets.DATABASE_URL}}"
           npx prisma migrate deploy
 
       
-      - name: deploy to Railway
+      - name: Deploy to Railway
         run: railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_DEV_TOKEN }}
